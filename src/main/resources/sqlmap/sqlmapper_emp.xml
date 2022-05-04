@@ -1,0 +1,23 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에게 Mapper 경로를 적어야한다. -->
+<mapper namespace="com.example.first_spring.mapper.MainMapper"><!-- mapper위치 경로-->
+<select id="getEmpList" resultType="EmpVO">
+<!-- 쿼리의 결과값을 EmpVO로 하겠다. -->
+<!-- 결과값을 위 경로에 설정한 MainMapper의 메소드(id="getEmpList")로 return -->
+	SELECT
+	empno,
+	ename,
+	job,
+	hiredate
+	FROM emp
+</select>
+<select id="getEmp" resultType="EmpVO">
+	SELECT 
+	ename,
+	hiredate
+	FROM 
+	emp
+	WHERE 
+	empno = 7499
+</select>
+</mapper>

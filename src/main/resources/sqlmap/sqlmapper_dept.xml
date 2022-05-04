@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에게 Mapper 경로를 적어야한다. -->
+<mapper namespace="com.example.first_spring.mapper.DeptMapper"><!-- mapper위치 경로-->
+<select id="getDeptList" resultType="DeptVO">
+<!-- 쿼리의 결과값을 DeptVO로 하겠다. -->
+<!-- 결과값을 위 경로에 설정한 MainMapper의 메소드(id="getDeptList")로 return -->
+	SELECT
+	*
+	FROM dept
+</select>
+<select id="getDeptVo" resultType="DeptVO">
+SELECT
+*
+FROM dept
+WHERE deptno = 30
+</select>
+
+</mapper>
