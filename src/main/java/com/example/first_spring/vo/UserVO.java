@@ -11,6 +11,8 @@ public class UserVO {
 	private String name;
 	private int age;
 	private String addr;
+	public UserVO() {
+	}
 }
 
 
