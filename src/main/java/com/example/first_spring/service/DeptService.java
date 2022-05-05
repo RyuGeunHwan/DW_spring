@@ -10,7 +10,7 @@ import com.example.first_spring.vo.DeptVO;
 
 @Service
 public class DeptService {
-
+	
 	@Autowired
 	private DeptMapper deptMapper;
 	

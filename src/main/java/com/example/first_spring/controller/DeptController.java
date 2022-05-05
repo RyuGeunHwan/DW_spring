@@ -11,6 +11,7 @@ import com.example.first_spring.vo.DeptVO;
 
 @RestController
 public class DeptController {
+	
 	@Autowired
 	private DeptService deptService;
 	
@@ -18,6 +19,8 @@ public class DeptController {
 	public List<DeptVO> callDept(){
 		return deptService.getDeptList();
 	}
+
+	
 	
 	@GetMapping("/dept/1")
 		public DeptVO callDeptVo() {
