@@ -1,9 +1,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에게 Mapper 경로를 적어야한다. -->
-<mapper namespace="com.example.first_spring.mapper.MainMapper"><!-- mapper위치 경로-->
+<mapper namespace="com.example.first_spring.mapper.EmpMapper"><!-- mapper위치 경로-->
 <select id="getEmpList" resultType="EmpVO">
 <!-- 쿼리의 결과값을 EmpVO로 하겠다. -->
-<!-- 결과값을 위 경로에 설정한 MainMapper의 메소드(id="getEmpList")로 return -->
+<!-- 결과값을 위 경로에 설정한 Mapper의 메소드(id="getEmpList")로 return -->
 	SELECT
 	empno,
 	ename,
@@ -13,11 +13,109 @@
 </select>
 <select id="getEmp" resultType="EmpVO">
 	SELECT 
+	empno,
 	ename,
-	hiredate
+	hiredate,
+	job
 	FROM 
 	emp
 	WHERE 
-	empno = 7499
+	empno = #{empNo}
+	 <!-- #{empNo} : url주소에 입력된 값 -> http://localhost:8080/emp/no/7654({#empNo}) -->
 </select>
+<select id="selectEmpWhereJobAndSal" resultType="EmpVO">
+select
+ename,
+sal,
+job
+from emp
+WHERE
+job = #{jobName} and sal = #{sal}
+</select>
+
+
+<!-- 문제 1. 이름에 L문자가 두 번 이상 포함된 사원 이름, 직업 조회(* L을 두번만 포함하는 사람) -->
+<select id="getEmpEname" resultType="EnameVO">
+SELECT
+ename,
+job
+FROM emp e 
+WHERE ename LIKE '%L%L%'
+</select>
+<!-- 문제 2. 커미션(comm)이 null('')인 사원의 이름, 커미션 조회 -->
+<select id="getEmpComm" resultType="CommVo">
+select 
+ename,
+comm
+from emp e 
+where comm = ''
+
+</select>
+<!-- 문제 3. 입사일이 '1980-12-17' ~ '1982-01-23'인 사원의 이름, 입사날짜 조회 -->
+<select id="getEmpHiredate" resultType="HiredateVO">
+select 
+ename,
+HIREDATE 
+from emp e 
+where HIREDATE between '1980-12-17' and '1982-01-23'
+order by HIREDATE desc
+</select>
+
+
+<!-- 문제 0. 부서가 10, 30에 속하는 사원 중 급여가 1500을 넘는 사원의 이름 및 급여 조회 -->
+<select id="getEmpDeptNo" resultType="EmpVO">
+select 
+ename,
+SAL 
+from emp e 
+where (deptno = 10 or deptno = 30) and sal >= #{sal}
+</select>
+
+<!-- 문제 1. MGR이 NULL인 사원 이름, 직업, 급여 조회 -->
+<select id="getMgr" resultType="EmpVO">
+select 
+ename,
+job,
+SAL 
+from emp e 
+where MGR is NULL
+</select>
+
+<!-- 문제 2. 특정 년도에 입사한 사원 이름, 직업, 입사날짜, 급여 조회-->
+<select id="getHiredateYear" resultType="EmpVO">
+select 
+ename,
+job,
+HIREDATE ,
+SAL 
+from emp e 
+where date_format(HIREDATE, '%Y') = #{year}
+</select>
+
+<!-- 문제 3. 입사 날짜가12월에 입사한 사원 이름, 급여 조회-->
+<select id="getHiredateMonth" resultType="EmpVO">
+select 
+ename,
+job,
+hiredate ,
+sal
+from emp e 
+where date_format(HIREDATE, '%m')=#{month}
+</select>
+
+<!-- 문제 4. 특정 job에 속한 사원번호, 사원 이름, 입사날짜 조회 -->
+<select id="getJob" resultType="EmpVO">
+select 
+ename,
+job,
+HIREDATE,
+SAL 
+from emp e 
+where job = #{jobName}
+limit 1
+</select>
+
+<!-- 문제 5. 특정 사원의 모든 정보 조회(emp, dept 테이블 조인) -->
+
+
 </mapper>

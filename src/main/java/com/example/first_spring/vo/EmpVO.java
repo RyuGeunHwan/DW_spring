@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class EmpVO {
-	private int empno;
 	private String ename;
+	private int sal;
+	private int empno;
 	private String job;
 	private String hiredate;
 	

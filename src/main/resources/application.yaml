@@ -4,13 +4,14 @@ mybatis:
    # locations == sql위치!
    # * == sql전체를 다 가져오겠다.
    type-aliases-package: com.example.first_spring.vo
+   #데이터를 받을 패키지 경로
 
 
 #MySQL 접속 정보 설정
 spring : 
    datasource :
       driver-class-name : com.mysql.cj.jdbc.Driver
-      url : jdbc:mysql://localhost:3306/ryugeunhwan?useUnicode=true&charaterEncoding=utf-8&serverTimezone=UTC #접속하고 싶은 데이터베이스 url작성
+      url : jdbc:mysql://localhost:3306/dw?useUnicode=true&charaterEncoding=utf-8&serverTimezone=UTC #접속하고 싶은 데이터베이스 url작성
       username : root #DBeaver username 작성
       password : rmsghksdl1! #DBeaver password 작성성
 

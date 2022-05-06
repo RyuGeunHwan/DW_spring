@@ -25,7 +25,7 @@ dependencies { //의존성
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 	
 	//ORM
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'// Mapper->interface
 	//MYSQL
 	runtimeOnly 'mysql:mysql-connector-java'
 }
