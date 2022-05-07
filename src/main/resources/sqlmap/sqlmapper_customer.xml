@@ -9,4 +9,5 @@ SELECT
 FROM customer
 </select>
 
+
 </mapper>

@@ -23,7 +23,8 @@ public interface EmpMapper {
 	
 	// MyBatis(SQL)에 데이터를 2개 이상 넘길 때는 @Param이용!
 	public List<EmpVO> selectEmpWhereJobAndSal(@Param("jobName") String jobName, @Param("sal") int sal);
-
+	//xml파일의 쿼리에서 where절에 나오는 조건의 #{} 중괄호 안에 Param의 변수 이름과 동일 해야한다.
+	
 	//문제 1. 이름에 L문자가 두 번 이상 포함된 사원 이름, 직업 조회(* L을 두번만 포함하는 사람)
 	public List<EnameVO> getEmpEname();
 	

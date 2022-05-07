@@ -31,6 +31,7 @@ job
 from emp
 WHERE
 job = #{jobName} and sal = #{sal}
+<!-- Mapper의 메소드 파라미터 @Param의 변수명과 #{}중괄호의 변수 명은 동일해야한다. -->
 </select>
 
 

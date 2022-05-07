@@ -22,27 +22,26 @@ public class MainService {
         list.add(new UserVO("백윤식",75,"서울"));
         
         //방법1. 60세 이상의 index를 새로운 List(=list1)에 넣어버리기
-        List<UserVO> list1 = new ArrayList<UserVO>(); 
-        for(int i=0; i<list.size(); i++) {
-        	if(list.get(i).getAge()<=60) {
-        		list1.add(new UserVO(list.get(i).getName(),list.get(i).getAge(),list.get(i).getAddr()));
-        	}
-        	
-        }
-		return list1;// 60세 이상을 넣어준 List를 return
-		
+//        List<UserVO> list1 = new ArrayList<UserVO>(); 
+//        for(int i=0; i<list.size(); i++) {
+//        	if(list.get(i).getAge()<=60) {
+//        		list1.add(new UserVO(list.get(i).getName(),list.get(i).getAge(),list.get(i).getAddr()));
+//        	}
+//        }
+//		return list1;// 60세 이상을 넣어준 List를 return
+//		
 		
         //방법2. 60세가 이상 index지워버리기
-//        for(int i=0; i<list.size(); i++) {
-//        	 if(list.get(i).getAge()>=60) {
-//         		list.remove(i);
-//         		i--;
-//			// i--사용 이유는 컬렉션즈의 특징으로 인덱스를 삭제하게 되면 뒤에있는 인덱스가 삭제된 공간을 채우기 때문에
-//			// if문이 실행되었으면 삭제된 공간에 채워진 index를 다시 한번 확인 하기 위해 사용된 것이다.
-//			// if문이 충족되지 않을경우 i는 list.size()가 될때까지 증감(++)하기 때문에!
-//         	}
-//        }
-//		return list; //기존 인덱스에서 60세이상을 삭제하고 기존 list return
+        for(int i=0; i<list.size(); i++) {
+        	 if(list.get(i).getAge()>=60) {
+         		list.remove(i);
+         		i--;
+			// i--사용 이유는 컬렉션즈의 특징으로 인덱스를 삭제하게 되면 뒤에있는 인덱스가 삭제된 공간을 채우기 때문에
+			// if문이 실행되었으면 삭제된 공간에 채워진 index를 다시 한번 확인 하기 위해 사용된 것이다.
+			// if문이 충족되지 않을경우 i는 list.size()가 될때까지 증감(++)하기 때문에!
+         	}
+        }
+		return list; //기존 인덱스에서 60세이상을 삭제하고 기존 list return
 	}
     //문제 2. 나이가 가장많은 배우의 나이를 리턴하시오.
     public int getUserAgeMax(){
