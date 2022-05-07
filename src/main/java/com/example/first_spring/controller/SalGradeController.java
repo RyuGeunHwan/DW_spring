@@ -17,7 +17,7 @@ public class SalGradeController {
 	@Autowired
 	private SalGradeService salGradeService;
 	
-	@GetMapping("/salGrade/grade/{grade}")
+	@GetMapping("/salGrade/{grade}")
 	public List<SalGradeVO> loadSalGrade(@PathVariable("grade")int grade){
 		return salGradeService.getSalGradeList(grade);
 	}
