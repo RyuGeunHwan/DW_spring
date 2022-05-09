@@ -93,6 +93,7 @@ public class EmpService {
 	}
 	//문제 3. 급여가 가장 높은 사원 조회
 	//포기데쓰
+	@Transactional(rollbackFor = {Exception.class})
 	public List<EmpVO> getHiredateMonth(String month){
 		int max = 0;
 		List<EmpVO> list = empMapper.getHiredateMonth(month);
@@ -104,7 +105,7 @@ public class EmpService {
 		}
 		for(int i=0; i<list.size(); i++) {
 			if(max == list.get(i).getSal()) {
-				return empMapper.getHiredateMonth(month);
+				return list;
 			}
 		}
 		

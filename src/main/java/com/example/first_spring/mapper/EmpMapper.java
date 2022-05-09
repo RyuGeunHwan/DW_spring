@@ -62,6 +62,7 @@ public interface EmpMapper {
 	
 	// return타입이 왜 int인지? insert, delete, update는 
 	public int insertEmp(EmpVO empVO);//emp 데이터 삽입
+	//
 	 
 	public int deleteEmp(int empNo);//emp 데이터 삭제
 	

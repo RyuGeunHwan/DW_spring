@@ -96,6 +96,7 @@ public class EmpController {
 	
 	
 	// @RequestBody가 파라미터로 넘어오는 VO클래스를 대신 new해줌.
+	// http요청의 body 부분을 java 객체로 받을 수 있게 해주는 어노테이션. 주로 json을 받을 때 활용 
 	//@PostMapping : 데이터 insert
 	@PostMapping("/emp")
 	public int callEmpSet(@RequestBody EmpVO empVO) {
