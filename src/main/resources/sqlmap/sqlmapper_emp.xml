@@ -109,7 +109,8 @@ job,
 hiredate ,
 sal
 from emp e 
-where date_format(HIREDATE, '%m')=#{month}
+where date_format(HIREDATE, '%m')=#{month} 
+
 </select>
 
 <!-- 문제 4. 특정 job에 속한 사원번호, 사원 이름, 입사날짜 조회 -->

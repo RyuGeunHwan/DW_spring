@@ -13,7 +13,6 @@ import com.example.first_spring.vo.DeptVO;
 import com.example.first_spring.vo.EmpVO;
 import com.example.first_spring.vo.EnameVO;
 import com.example.first_spring.vo.HiredateVO;
-import com.example.first_spring.vo.UserVO;
 
 @Service
 public class EmpService {
@@ -38,12 +37,11 @@ public class EmpService {
 		//문제. job이 manager이고 sal이 2500이상받는 사원comm을 500으로 업데이트 후
 		// 사원이름,직업,커미션 조회
 		List<EmpVO> list = empMapper.selectEmpWhereJobAndSal(jobName, sal);
-		int comm = 500; //커미션
+		int comm = 300; //커미션
 		int rows = 0;
 		System.out.println(list);
 		// 현재 list에는 sql쿼리의 결과가 담겨져 있다.
 		for(int i=0; i<list.size(); i++) {
-			
 			list.get(i).setComm(comm);
 			int empno = list.get(i).getEmpno();
 			System.out.println("empno ====> "+empno);
@@ -53,7 +51,8 @@ public class EmpService {
 		}
 		
 		if(rows > 0) {
-			return empMapper.selectEmpWhereJobAndSal(jobName, sal);
+			return list;
+			// 쿼리 결과의 행의 개수(rows)가 0보다 크면
 		}
 		
 		return null;
@@ -97,29 +96,25 @@ public class EmpService {
 	public List<EmpVO> getHiredateMonth(String month){
 		int max = 0;
 		List<EmpVO> list = empMapper.getHiredateMonth(month);
+		EmpVO vo = null;
 		System.out.println(list);
 		for(int i=0; i<list.size(); i++) {
 			if(max<list.get(i).getSal()){
 				max = list.get(i).getSal();
+				if(max == list.get(i).getSal()) {
+					vo = list.get(i);
+				}
 			}
 		}
-		for(int i=0; i<list.size(); i++) {
-			if(max == list.get(i).getSal()) {
-				return list;
-			}
-		}
-		
-		
-		return null;
+		List<EmpVO> maxSalEmpnoList = new ArrayList<EmpVO>();
+		maxSalEmpnoList.add(vo);
+		System.out.println(maxSalEmpnoList);
+		return maxSalEmpnoList;
 	}
 	//문제 4. MANAGER를 파라미터로 받고 job이 MANAGER 중 입사날짜가 가장 빠른 사원의 이름, 입사날짜, 급여 조회 
 	public List<EmpVO> getJob(String jobName){
 		return empMapper.getJob(jobName);
 	}
-	
-	
-	
-	
 	
 	@Transactional(rollbackFor = {Exception.class})
 	public int setEmp(EmpVO vo) {
