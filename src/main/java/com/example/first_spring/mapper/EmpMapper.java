@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.first_spring.vo.CommVO;
+import com.example.first_spring.vo.DeptVO;
 import com.example.first_spring.vo.EmpVO;
 import com.example.first_spring.vo.EnameVO;
 import com.example.first_spring.vo.HiredateVO;
@@ -21,9 +22,13 @@ public interface EmpMapper {
 
 	public EmpVO getEmp(int empNo);
 	
+	
+	//문제. job이 manager이고 sal이 2500이상받는 사원comm을 500으로 업데이트 후
+		// 사원이름,직업,커미션 조회
 	// MyBatis(SQL)에 데이터를 2개 이상 넘길 때는 @Param이용!
 	public List<EmpVO> selectEmpWhereJobAndSal(@Param("jobName") String jobName, @Param("sal") int sal);
 	//xml파일의 쿼리에서 where절에 나오는 조건의 #{} 중괄호 안에 Param의 변수 이름과 동일 해야한다.
+	
 	
 	//문제 1. 이름에 L문자가 두 번 이상 포함된 사원 이름, 직업 조회(* L을 두번만 포함하는 사람)
 	public List<EnameVO> getEmpEname();
@@ -55,12 +60,16 @@ public interface EmpMapper {
 	public List<EmpVO> getJob(String jobName);
 	
 	
+	// return타입이 왜 int인지? insert, delete, update는 
+	public int insertEmp(EmpVO empVO);//emp 데이터 삽입
+	 
+	public int deleteEmp(int empNo);//emp 데이터 삭제
 	
+	public int updateEmp(EmpVO empVO); //emp 데이터 수정
 	
-	
-	
-	
-	
+	public int insertDept(DeptVO deptVO);// dept 데이터 삽입
+	 
+	public int deleteDeptno(int deptNo); //dept 데이터 삭제
 	
 	
 	//Mapper 클래스는 Interface파일로 생성!

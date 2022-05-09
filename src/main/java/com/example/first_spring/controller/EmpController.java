@@ -5,12 +5,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.first_spring.service.EmpService;
 import com.example.first_spring.vo.CommVO;
+import com.example.first_spring.vo.DeptVO;
 import com.example.first_spring.vo.EmpVO;
 import com.example.first_spring.vo.EnameVO;
 import com.example.first_spring.vo.HiredateVO;
@@ -28,23 +33,19 @@ public class EmpController {
 		return empService.getAllempList();
 	}
 	
-	
-	
-	
-	
-	
+
 	// @PathVariable : {}로 들어온 값을 파라미터에 대입
 	@GetMapping("/emp/no/{empNo}")
 	public EmpVO callEmp(@PathVariable("empNo") int empNo) {
 		return empService.getEmp(empNo);
 	}
 	
+	//문제. job이 manager이고 sal이 2500이상받는 사원comm을 500으로 업데이트 후
+	// 사원이름,직업,커미션 조회
 	@GetMapping("/emp/job/{jobName}/sal/{sal}")
 	public List<EmpVO> selectEmpWhereJobAndSal(@PathVariable("jobName") String jobName, @PathVariable("sal") int sal){
 		return empService.selectEmpWhereJobAndSal(jobName, sal);
 	}
-	
-	
 	
 	@GetMapping("/emp/name")
 	public List<EnameVO> callEmpEname() {
@@ -91,4 +92,38 @@ public class EmpController {
 	public List<EmpVO> callJob(@PathVariable("jobName") String jobName){
 		return empService.getJob(jobName);
 	}
+	
+	
+	
+	// @RequestBody가 파라미터로 넘어오는 VO클래스를 대신 new해줌.
+	//@PostMapping : 데이터 insert
+	@PostMapping("/emp")
+	public int callEmpSet(@RequestBody EmpVO empVO) {
+		return empService.setEmp(empVO);
+	}
+	
+	//@DeleteMapping : 데이터 delete
+	@DeleteMapping("/emp/empno/{empno}")
+	public int callEmpRemove(@PathVariable("empno") int empNo) {
+		return empService.getEmpRemoveCount(empNo);
+	}
+	
+	//@PatchMapping : 데이터 update
+	@PatchMapping("/emp")
+	public int callEmpUpdate(@RequestBody EmpVO empVO) {
+		return empService.getEmpUpdateCount(empVO);
+	}
+	
+	@PostMapping("/dept")
+	public int callDeptInsert(@RequestBody DeptVO deptVO) {
+		return empService.getDeptPostCount(deptVO);
+	}
+	
+	@DeleteMapping("/dept/deptno/{deptno}")
+	public int callDeleteDeptno(@PathVariable("deptno") int deptno) {
+		return empService.getDeptDeleteCount(deptno);
+	}
+	
+
+	
 }

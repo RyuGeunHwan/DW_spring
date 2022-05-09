@@ -8,8 +8,10 @@
 	empno,
 	ename,
 	job,
-	hiredate
+	hiredate,
+	comm
 	FROM emp
+	where ename = 'TURNER'
 </select>
 <select id="getEmp" resultType="EmpVO">
 	SELECT 
@@ -23,14 +25,20 @@
 	empno = #{empNo}
 	 <!-- #{empNo} : url주소에 입력된 값 -> http://localhost:8080/emp/no/7654({#empNo}) -->
 </select>
+
+<!-- 문제. job이 manager이고 sal이 2500이상받는 사원comm을 500으로 업데이트 후 사원이름,직업,커미션 조회 -->
 <select id="selectEmpWhereJobAndSal" resultType="EmpVO">
 select
-ename,
-sal,
-job
-from emp
+	empno,
+	ename,
+	job,
+	comm
+from emp e 
 WHERE
-job = #{jobName} and sal = #{sal}
+job = #{jobName}
+AND
+sal >= #{sal}
+
 <!-- Mapper의 메소드 파라미터 @Param의 변수명과 #{}중괄호의 변수 명은 동일해야한다. -->
 </select>
 
@@ -116,7 +124,58 @@ where job = #{jobName}
 limit 1
 </select>
 
-<!-- 문제 5. 특정 사원의 모든 정보 조회(emp, dept 테이블 조인) -->
 
+<!-- DB가 Oracle일때 Oracle은 MyBatis Insert할 때 PK문법이 다름(시퀀스를 추가해야 함) -->
+<insert id="insertEmp">
+INSERT INTO emp
+(
+empno,
+ename,
+deptno,
+hiredate
+) 
+VALUES
+(
+#{empno},
+#{ename},
+#{deptno},
+now()
+)
+</insert>
+<delete id="deleteEmp">
+delete from emp
+where empno = #{empno}
+</delete>
+
+<update id="updateEmp">
+UPDATE emp
+SET 
+comm = #{comm}
+WHERE
+empno = #{empno}
+</update>
+
+<insert id="insertDept">
+INSERT INTO dept
+VALUES(
+#{deptno},
+#{dname},
+#{loc}
+)
+</insert>
+
+<delete id="deleteDeptno">
+DELETE FROM dept
+where deptno = #{deptno}
+</delete>
+
+<select id="getEmpJoinDept" resultType="EmpVO">
+SELECT
+emp.ename,
+emp.job,
+dept.loc
+FROM emp left join dept
+on emp.deptno = dept.deptno
+</select>
 
 </mapper>
