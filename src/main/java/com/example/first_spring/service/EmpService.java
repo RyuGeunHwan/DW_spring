@@ -13,6 +13,7 @@ import com.example.first_spring.vo.DeptVO;
 import com.example.first_spring.vo.EmpVO;
 import com.example.first_spring.vo.EnameVO;
 import com.example.first_spring.vo.HiredateVO;
+import com.example.first_spring.vo.UserVO;
 
 @Service
 public class EmpService {
@@ -114,17 +115,28 @@ public class EmpService {
 	public List<EmpVO> getJob(String jobName){
 		return empMapper.getJob(jobName);
 	}
-	
+	// 문제. emp에서 없는 부서번호를 찾아서 해당 부서 번호로 insert 하기.
 	@Transactional(rollbackFor = {Exception.class})
 	public int setEmp(EmpVO vo) {
+		EmpVO empVO = empMapper.selectDeptNo();
+		int deptNo = empVO.getDeptno();
+		
+		vo.setDeptno(deptNo);
 		int rows = empMapper.insertEmp(vo); //몇행 insert 되었는지 리턴
 		return rows;
 	}
 	
+	// 급여3000이상인 사람 삭제 Service
 	@Transactional(rollbackFor = {Exception.class})
 	public int getEmpRemoveCount(int empNo) {
-		int rows = empMapper.deleteEmp(empNo); //몇행 delete 되었는지 리턴
-		return rows;
+		List<EmpVO> voList = empMapper.getEmpNoList();
+		for(int i=0; i<voList.size(); i++) {
+			if(empNo == voList.get(i).getEmpno()) {
+				int rows = empMapper.deleteEmp(empNo);
+				return rows;
+			}
+		}
+		return 0;
 	}
 	
 	
@@ -154,6 +166,11 @@ public class EmpService {
 	}
 	
 	
-	
+	//문제. A로 시작하는 사람 수 구하기
+	@Transactional(rollbackFor = {Exception.class})
+	public int selectEmpEname(String ename) {
+		List<EmpVO> list = empMapper.selectEmpEname(ename);
+		return list.size();
+	}
 	
 }

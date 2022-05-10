@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.first_spring.service.EmpService;
@@ -47,11 +48,11 @@ public class EmpController {
 		return empService.selectEmpWhereJobAndSal(jobName, sal);
 	}
 	
-	@GetMapping("/emp/name")
-	public List<EnameVO> callEmpEname() {
-		System.out.println("이름에 L문자가 두 번 이상 포함된 사원 "+empService.getEmpEname());
-		return empService.getEmpEname();
-	}
+//	@GetMapping("/emp/name")
+//	public List<EnameVO> callEmpEname() {
+//		System.out.println("이름에 L문자가 두 번 이상 포함된 사원 "+empService.getEmpEname());
+//		return empService.getEmpEname();
+//	}
 	@GetMapping("/emp/comm")
 	public List<CommVO> callEmpComm(){
 		System.out.println("보너스가 없는 놈은 "+empService.getEmpComm());
@@ -103,9 +104,13 @@ public class EmpController {
 		return empService.setEmp(empVO);
 	}
 	
+	
 	//@DeleteMapping : 데이터 delete
 	@DeleteMapping("/emp/empno/{empno}")
 	public int callEmpRemove(@PathVariable("empno") int empNo) {
+		// 1.급여가 3000이상인 쿼리 작성
+		// 2. mapper 메소드 작성(리턴타입은 쿼리 결과에 따라서 결정)
+		// 3. pk로 쿼리를 조회하는 것의 리턴타입은 단일행결과이기 때문에 List<>로 받지 말자!
 		return empService.getEmpRemoveCount(empNo);
 	}
 	
@@ -113,6 +118,31 @@ public class EmpController {
 	@PatchMapping("/emp")
 	public int callEmpUpdate(@RequestBody EmpVO empVO) {
 		return empService.getEmpUpdateCount(empVO);
+	}
+	
+	
+	// 쿼리스트링으로 @GetMapping
+	// 쿼리스트링은 @RequestParam("url주소의 변수명")으로 값을 받음.
+	// region=kr kr을 region에 대입하겠다라는 의미.
+	// localhost:8080/tier?region=kr&name=geunhwan
+	@GetMapping("/tier")
+	public String calltier(@RequestParam("region") String region, @RequestParam("name") String name) {
+		return region + ","+name;
+	}
+	
+	
+	// 주소 => localhost:8080/board?page=1&pageSize=10&writer=geunhwan
+	// 게시판의 현재 페이지는 1페이지 한화면에 보여주는 페이지 수는 10개이고 작성자는 geunhwan이다.
+	@GetMapping("/board")
+	public int callBoard(
+			@RequestParam("page") int page, 
+			@RequestParam("pageSize") int pageSize, 
+			@RequestParam("writer") String writer
+			) {
+		System.out.println("현재 페이지 : "+page);
+		System.out.println("한 페이지에 보여주는 row수는 : "+pageSize);
+		System.out.println("작성자는 : "+writer);
+		return 0;
 	}
 	
 	@PostMapping("/dept")
@@ -125,6 +155,12 @@ public class EmpController {
 		return empService.getDeptDeleteCount(deptno);
 	}
 	
-
+	//문제1. A로 시작하는 사람 수 구하기
+	// /emp/name?search=A
+	@GetMapping("/emp/name")
+	public int callEmpNameCount(@RequestParam("search") String search) {
+		return empService.selectEmpEname(search);
+	}
+	
 	
 }

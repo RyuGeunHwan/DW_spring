@@ -133,20 +133,34 @@ INSERT INTO emp
 empno,
 ename,
 deptno,
-hiredate
+hiredate,
+sal
 ) 
 VALUES
 (
 #{empno},
 #{ename},
 #{deptno},
-now()
+now(),
+#{sal}
 )
 </insert>
+
+
+<!-- 급여3000이상인 사람 삭제 -->
 <delete id="deleteEmp">
 delete from emp
 where empno = #{empno}
 </delete>
+
+<select id="getEmpNoList" resultType="EmpVO">
+select 
+empno,
+sal
+from emp e 
+where sal >= 3000
+</select>
+
 
 <update id="updateEmp">
 UPDATE emp
@@ -165,10 +179,27 @@ VALUES(
 )
 </insert>
 
+<!--  -->
+<select id="selectDeptNo" resultType="EmpVO">
+SELECT 
+	d.DEPTNO 
+FROM 
+	emp AS e
+RIGHT JOIN 
+	dept AS d
+ON 
+	e.DEPTNO = d.DEPTNO 
+WHERE 
+	e.EMPNO IS null
+</select>
+
+
 <delete id="deleteDeptno">
 DELETE FROM dept
 where deptno = #{deptno}
 </delete>
+
+
 
 <select id="getEmpJoinDept" resultType="EmpVO">
 SELECT
@@ -178,5 +209,17 @@ dept.loc
 FROM emp left join dept
 on emp.deptno = dept.deptno
 </select>
+
+
+<!-- A로 시작하는 사람 수 구하기 -->
+<select id="selectEmpEname" resultType="EmpVO">
+SELECT
+*
+FROM 
+emp
+WHERE ename LIKE CONCAT(#{search}, '%')
+<!-- CONCAT 문자열 합치기 함수 -->
+</select>
+
 
 </mapper>
