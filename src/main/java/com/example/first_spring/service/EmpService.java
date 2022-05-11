@@ -173,4 +173,37 @@ public class EmpService {
 		return list.size();
 	}
 	
+	
+	@Transactional(rollbackFor = {Exception.class})
+	public List<EmpVO> getEmpIsMgrList(String isMgr){
+		return empMapper.selectEmpMgr(isMgr);
+	}
+	
+	@Transactional(rollbackFor = {Exception.class})
+	public int getUpdateEmpno(EmpVO vo) {
+		int rows = empMapper.updateEmpno(vo);
+		return rows;
+	}
+	
+	
+//	문제. 사원번호가 7844번인 사원의 COMM이 0이거나 NULL이면 기존 급여에서 500을 추가 COMM이 있다면 0 리턴!
+	@Transactional(rollbackFor = {Exception.class})
+	public int getEmpUpdateSalCount(int empno) {
+		
+		//COMM이 0이거나 NULL이면
+		EmpVO vo = empMapper.selectEmpCommSal(empno);
+		if(vo != null) {
+			int comm = vo.getComm();
+			
+			if(comm == 0) {
+				int bonus = 500;
+				int sal = vo.getSal();
+				vo.setSal(sal+bonus);
+				int getSal = vo.getSal();
+				//update 로직 추가
+				return empMapper.updateEmpSal(vo);
+			}
+		}
+		return 0;
+	}
 }

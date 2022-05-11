@@ -163,4 +163,25 @@ public class EmpController {
 	}
 	
 	
+	@GetMapping("/emp/mgr/{isMgr}")
+	public List<EmpVO> callEmpMgr(@PathVariable("isMgr") String isMgr){
+		return empService.getEmpIsMgrList(isMgr);
+	}
+	
+	@PatchMapping("/empno")
+	public int callUpdateEmpno(@RequestBody EmpVO vo, HttpServletRequest request) {
+		String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null) ip = request.getRemoteAddr();
+	    System.out.println("IP ====> "+ip);
+		return empService.getUpdateEmpno(vo);
+	}
+	
+//	문제. 사원번호가 7844번인 사원의 COMM이 0이거나 NULL이면 기존 급여에서 500을 추가 COMM이 있다면 0 리턴!
+	@PatchMapping("/emp/empno/{empno}")
+	public int callEmpSalUpdate(@PathVariable("empno") int empno) {
+		return empService.getEmpUpdateSalCount(empno);
+	}
+	
+	
+
 }
