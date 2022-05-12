@@ -1,6 +1,7 @@
 package com.example.first_spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +19,6 @@ import com.example.first_spring.service.EmpService;
 import com.example.first_spring.vo.CommVO;
 import com.example.first_spring.vo.DeptVO;
 import com.example.first_spring.vo.EmpVO;
-import com.example.first_spring.vo.EnameVO;
 import com.example.first_spring.vo.HiredateVO;
 
 @RestController
@@ -165,6 +165,7 @@ public class EmpController {
 	
 	@GetMapping("/emp/mgr/{isMgr}")
 	public List<EmpVO> callEmpMgr(@PathVariable("isMgr") String isMgr){
+		//MyBatis에는 boolean형이 없기때문에 isMgr을 String으로 받아서 MyBatis에서 .eqauls로 비교!
 		return empService.getEmpIsMgrList(isMgr);
 	}
 	
@@ -183,5 +184,11 @@ public class EmpController {
 	}
 	
 	
-
+	@GetMapping("/emp/map/list")
+	public List<Map<String, Object>> callEmpMapList(HttpServletRequest request){
+		String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null) ip = request.getRemoteAddr();
+	    System.out.println("IP ====> "+ip);
+		return empService.getEmpMapList();
+	}
 }

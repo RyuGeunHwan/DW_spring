@@ -1,6 +1,7 @@
 package com.example.first_spring.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -92,6 +93,10 @@ public interface EmpMapper {
 	public EmpVO selectEmpCommSal(@Param("empno") int empno);
 	
 	public int updateEmpSal(EmpVO vo);
+	
+	public List<Map<String, Object>> selectEmpMapList();
+	//Map<String, Object> Map안에 Object를 넣어준 이유는 key(MyBatis쿼리의 컬럼명)의 value값의 타입이 어떻게 올지 몰라서
+	// 타입을 모두 포함하는 부모인Object를 사용~!
 
 	//Mapper 클래스는 Interface파일로 생성!
 }

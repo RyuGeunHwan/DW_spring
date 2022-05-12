@@ -2,6 +2,7 @@ package com.example.first_spring.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import com.example.first_spring.vo.DeptVO;
 import com.example.first_spring.vo.EmpVO;
 import com.example.first_spring.vo.EnameVO;
 import com.example.first_spring.vo.HiredateVO;
-import com.example.first_spring.vo.UserVO;
 
 @Service
 public class EmpService {
@@ -206,4 +206,14 @@ public class EmpService {
 		}
 		return 0;
 	}
+	
+	
+	public List<Map<String, Object>> getEmpMapList(){
+		Object ename = empMapper.selectEmpMapList().get(0).get("샐");
+		return empMapper.selectEmpMapList();
+
+	}
+	
+	
+	
 }

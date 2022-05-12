@@ -232,7 +232,7 @@ SELECT
 FROM
 	emp
 WHERE 1=1
-<!-- test는 if절의 조건문에 속한다. -->
+<!-- test는 if절의 조건문에 속한다, test의 작은 따옴표는 가장 바깥부분에 있어야한다. -->
 	<if test='isMgr.equals("true")'>
 		AND mgr IS NOT NULL
 	</if>
@@ -268,5 +268,21 @@ SET
 WHERE
 	empno = #{empno}
 </update>
+
+<select id="selectEmpMapList" resultType="map">
+SELECT
+empno as 이엠피엔오,
+ename as 이네임,
+job as 잡,
+sal as 샐,
+e.deptno as 디쩜디이피티엔오,
+d.dname as 디쩜디네임,
+d.loc as 디쩜엘오씨
+FROM emp AS e
+INNER JOIN dept AS d
+ON e.deptno = d.deptno
+</select>
+
+
 
 </mapper>
