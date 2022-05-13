@@ -87,8 +87,9 @@ public interface EmpMapper {
 	public List<EmpVO> selectEmpMgr(@Param("isMgr") String isMgr);
 	//MyBatis에는 boolean형이 없기 때문에 파라미터로 String으로 받는다.
 	
-	public int updateEmpno(EmpVO vo);
+	public int updateEmpno(@Param("empno") int empno);
 	
+	public int updateEmpJobSal(EmpVO vo);
 	
 	public EmpVO selectEmpCommSal(@Param("empno") int empno);
 	
@@ -97,6 +98,5 @@ public interface EmpMapper {
 	public List<Map<String, Object>> selectEmpMapList();
 	//Map<String, Object> Map안에 Object를 넣어준 이유는 key(MyBatis쿼리의 컬럼명)의 value값의 타입이 어떻게 올지 몰라서
 	// 타입을 모두 포함하는 부모인Object를 사용~!
-
 	//Mapper 클래스는 Interface파일로 생성!
 }

@@ -4,14 +4,11 @@
 <select id="getEmpList" resultType="EmpVO">
 <!-- 쿼리의 결과값을 EmpVO로 하겠다. -->
 <!-- 결과값을 위 경로에 설정한 Mapper의 메소드(id="getEmpList")로 return -->
-	SELECT
-	empno,
-	ename,
-	job,
-	hiredate,
-	comm
-	FROM emp
-	where ename = 'TURNER'
+SELECT
+*
+FROM emp inner join dept
+ON emp.deptno = dept.deptno
+ORDER BY empno
 </select>
 <select id="getEmp" resultType="EmpVO">
 	SELECT 
@@ -128,22 +125,24 @@ limit 1
 
 <!-- DB가 Oracle일때 Oracle은 MyBatis Insert할 때 PK문법이 다름(시퀀스를 추가해야 함) -->
 <insert id="insertEmp">
-INSERT INTO emp
-(
-empno,
-ename,
-deptno,
-hiredate,
-sal
-) 
-VALUES
-(
-#{empno},
-#{ename},
-#{deptno},
-now(),
-#{sal}
-)
+	INSERT INTO emp
+	(
+		empno,
+		ename,
+		deptno,
+		hiredate,
+		sal,
+		job
+	) 
+	VALUES
+	(
+		#{empno},
+		#{ename},
+		#{deptno},
+		now(),
+		#{sal},
+		#{job}
+	)
 </insert>
 
 
@@ -240,6 +239,16 @@ WHERE 1=1
 		AND mgr IS NULL
 	</if>
 </select>
+
+<update id="updateEmpJobSal">
+UPDATE emp
+SET 
+job = #{job},
+sal = #{sal}
+WHERE
+empno = #{empno}
+</update>
+
 <update id="updateEmpno">
 UPDATE emp
 SET 
@@ -248,6 +257,7 @@ sal = #{sal}
 WHERE
 empno = #{empno}
 </update>
+
 
 <!-- 문제. 사원번호가 7844번인 사원의 COMM이 0이거나 NULL이면 기존 급여에서 500을 추가
 COMM이 있다면 0 리턴! -->
@@ -271,13 +281,13 @@ WHERE
 
 <select id="selectEmpMapList" resultType="map">
 SELECT
-empno as 이엠피엔오,
-ename as 이네임,
-job as 잡,
-sal as 샐,
-e.deptno as 디쩜디이피티엔오,
-d.dname as 디쩜디네임,
-d.loc as 디쩜엘오씨
+empno,
+ename,
+job,
+sal,
+e.deptno,
+d.dname,
+d.loc
 FROM emp AS e
 INNER JOIN dept AS d
 ON e.deptno = d.deptno

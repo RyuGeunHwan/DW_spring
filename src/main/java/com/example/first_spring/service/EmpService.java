@@ -118,10 +118,10 @@ public class EmpService {
 	// 문제. emp에서 없는 부서번호를 찾아서 해당 부서 번호로 insert 하기.
 	@Transactional(rollbackFor = {Exception.class})
 	public int setEmp(EmpVO vo) {
-		EmpVO empVO = empMapper.selectDeptNo();
-		int deptNo = empVO.getDeptno();
-		
-		vo.setDeptno(deptNo);
+//		EmpVO empVO = empMapper.selectDeptNo();
+//		int deptNo = empVO.getDeptno();
+//		
+//		vo.setDeptno(deptNo);
 		int rows = empMapper.insertEmp(vo); //몇행 insert 되었는지 리턴
 		return rows;
 	}
@@ -129,14 +129,14 @@ public class EmpService {
 	// 급여3000이상인 사람 삭제 Service
 	@Transactional(rollbackFor = {Exception.class})
 	public int getEmpRemoveCount(int empNo) {
-		List<EmpVO> voList = empMapper.getEmpNoList();
-		for(int i=0; i<voList.size(); i++) {
-			if(empNo == voList.get(i).getEmpno()) {
+//		List<EmpVO> voList = empMapper.getEmpNoList();
+//		for(int i=0; i<voList.size(); i++) {
+//			if(empNo == voList.get(i).getEmpno()) {
 				int rows = empMapper.deleteEmp(empNo);
 				return rows;
-			}
-		}
-		return 0;
+//			}
+//		}
+//		return 0;
 	}
 	
 	
@@ -180,8 +180,8 @@ public class EmpService {
 	}
 	
 	@Transactional(rollbackFor = {Exception.class})
-	public int getUpdateEmpno(EmpVO vo) {
-		int rows = empMapper.updateEmpno(vo);
+	public int getUpdateEmpno(int empno) {
+		int rows = empMapper.updateEmpno(empno);
 		return rows;
 	}
 	
@@ -192,6 +192,7 @@ public class EmpService {
 		
 		//COMM이 0이거나 NULL이면
 		EmpVO vo = empMapper.selectEmpCommSal(empno);
+		System.out.println();
 		if(vo != null) {
 			int comm = vo.getComm();
 			
@@ -209,11 +210,13 @@ public class EmpService {
 	
 	
 	public List<Map<String, Object>> getEmpMapList(){
-		Object ename = empMapper.selectEmpMapList().get(0).get("샐");
+		
 		return empMapper.selectEmpMapList();
-
 	}
 	
-	
+	public int getApi(int empno, EmpVO empVO) {
+		empVO.setEmpno(empno);
+		return empMapper.updateEmpJobSal(empVO);
+	}
 	
 }

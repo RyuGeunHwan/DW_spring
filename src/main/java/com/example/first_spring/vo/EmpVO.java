@@ -10,6 +10,7 @@ public class EmpVO extends DeptVO {
 	private String job;
 	private String hiredate;
 	private int comm;
+	private int mgr;
 	private int deptno;
 	
 	public String getEname() {

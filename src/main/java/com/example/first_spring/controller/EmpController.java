@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,6 +27,7 @@ public class EmpController {
 	@Autowired
 	private EmpService empService;
 	
+	@CrossOrigin(origins = {"*"})
 	@GetMapping("/emp")
 	public List<EmpVO> callEmpList(HttpServletRequest request){
 		String ip = request.getHeader("X-Forwarded-For");
@@ -99,6 +101,7 @@ public class EmpController {
 	// @RequestBody가 파라미터로 넘어오는 VO클래스를 대신 new해줌.
 	// http요청의 body 부분을 java 객체로 받을 수 있게 해주는 어노테이션. 주로 json을 받을 때 활용 
 	//@PostMapping : 데이터 insert
+	@CrossOrigin(origins = {"*"})
 	@PostMapping("/emp")
 	public int callEmpSet(@RequestBody EmpVO empVO) {
 		return empService.setEmp(empVO);
@@ -106,6 +109,7 @@ public class EmpController {
 	
 	
 	//@DeleteMapping : 데이터 delete
+	@CrossOrigin(origins = {"*"})
 	@DeleteMapping("/emp/empno/{empno}")
 	public int callEmpRemove(@PathVariable("empno") int empNo) {
 		// 1.급여가 3000이상인 쿼리 작성
@@ -169,21 +173,24 @@ public class EmpController {
 		return empService.getEmpIsMgrList(isMgr);
 	}
 	
-	@PatchMapping("/empno")
-	public int callUpdateEmpno(@RequestBody EmpVO vo, HttpServletRequest request) {
+	
+	@CrossOrigin(origins = {"*"})
+	@PatchMapping("/empno/{empno}")
+	public int callUpdateEmpno(@PathVariable("empno") int empno, HttpServletRequest request) {
 		String ip = request.getHeader("X-Forwarded-For");
 	    if (ip == null) ip = request.getRemoteAddr();
 	    System.out.println("IP ====> "+ip);
-		return empService.getUpdateEmpno(vo);
+		return empService.getUpdateEmpno(empno);
 	}
 	
 //	문제. 사원번호가 7844번인 사원의 COMM이 0이거나 NULL이면 기존 급여에서 500을 추가 COMM이 있다면 0 리턴!
+	
 	@PatchMapping("/emp/empno/{empno}")
 	public int callEmpSalUpdate(@PathVariable("empno") int empno) {
 		return empService.getEmpUpdateSalCount(empno);
 	}
 	
-	
+	//List안에 Map으로 쿼리 결과 받기
 	@GetMapping("/emp/map/list")
 	public List<Map<String, Object>> callEmpMapList(HttpServletRequest request){
 		String ip = request.getHeader("X-Forwarded-For");
@@ -191,4 +198,11 @@ public class EmpController {
 	    System.out.println("IP ====> "+ip);
 		return empService.getEmpMapList();
 	}
+	
+	@CrossOrigin(origins = {"*"})
+	@PatchMapping("/api/v1/emp/{empno}")
+	public int callApi(@PathVariable("empno") int empno, @RequestBody EmpVO empVO) {
+		return empService.getApi(empno, empVO);
+	}
+	
 }
