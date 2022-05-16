@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.first_spring.mapper.SignUpMapper"><!-- mapper위치 경로-->
+<select id="getSignUpVO" resultType="SignUpVO">
+SELECT *
+FROM 회원가입
+</select>
+
+
+<insert id="postValue">
+INSERT INTO 회원가입(
+id,
+pass_word,
+name,
+birthday,
+gender)
+
+VALUES (
+#{id},
+#{pass_word},
+#{name},
+#{birthday},
+#{gender}
+)
+</insert>
+
+<update id="patchIsLogin">
+UPDATE 회원가입
+SET isLogin = #{isLogin}
+where SUBSTRING(pass_word , 1, 1) = #{firstPassword}
+</update>
+
+</mapper>
