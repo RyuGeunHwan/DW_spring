@@ -11,6 +11,7 @@ public class UserVO {
 	private String name;
 	private int age;
 	private String addr;
+<<<<<<< HEAD
 	public String getName() {
 		return name;
 	}
@@ -30,6 +31,41 @@ public class UserVO {
 		this.addr = addr;
 	}
 	public UserVO(String name,int age,String addr) {
+=======
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public int getAge() {
+		return age;
+	}
+
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
+	public String getAddr() {
+		return addr;
+	}
+
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+
+	public UserVO(String name, int age,String addr) {
+>>>>>>> f7fc534614d5af9e09afaa0d87b39212e65a3cbb
 	}
 
 	
