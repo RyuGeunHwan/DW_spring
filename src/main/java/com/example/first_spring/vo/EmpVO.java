@@ -13,6 +13,24 @@ public class EmpVO extends DeptVO {
 	private int mgr;
 	private int deptno;
 	
+	public int getComm() {
+		return comm;
+	}
+	public void setComm(int comm) {
+		this.comm = comm;
+	}
+	public int getMgr() {
+		return mgr;
+	}
+	public void setMgr(int mgr) {
+		this.mgr = mgr;
+	}
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
 	public String getEname() {
 		return ename;
 	}
