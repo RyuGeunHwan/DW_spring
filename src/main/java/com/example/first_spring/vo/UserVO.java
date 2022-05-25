@@ -12,7 +12,9 @@ public class UserVO {
 	private int age;
 	private String addr;
 	
+	public UserVO() {
 	
+	}
 	public String getName() {
 		return name;
 	}
@@ -41,12 +43,6 @@ public class UserVO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-
-
-	public UserVO(String name, int age,String addr) {
-	}
-
-	
 
 	
 }
