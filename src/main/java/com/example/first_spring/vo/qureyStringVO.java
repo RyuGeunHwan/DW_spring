@@ -43,9 +43,4 @@ public class qureyStringVO {
 	public void setBirth_date(Date birth_date) {
 		this.birth_date = birth_date;
 	}
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> f7fc534614d5af9e09afaa0d87b39212e65a3cbb
 }
