@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class qureyStringVO {
 	private String phone_num;
 	private int age;
@@ -42,4 +43,5 @@ public class qureyStringVO {
 	public void setBirth_date(Date birth_date) {
 		this.birth_date = birth_date;
 	}
+
 }
