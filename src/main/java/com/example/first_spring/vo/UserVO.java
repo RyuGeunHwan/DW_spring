@@ -1,12 +1,10 @@
 package com.example.first_spring.vo;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 // getter,setter or data : getter,setter함수를 자동으로 만들어 줌
-@Data
 @Getter
 @Setter
 @AllArgsConstructor // 생성자를 자동으로 만들고 생성자의 파라미터에 필드변수만큼 자동으로 추가
