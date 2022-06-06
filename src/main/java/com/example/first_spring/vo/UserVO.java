@@ -11,7 +11,7 @@ public class UserVO {
 	private String name;
 	private int age;
 	private String addr;
-<<<<<<< HEAD
+
 	public String getName() {
 		return name;
 	}
@@ -31,8 +31,7 @@ public class UserVO {
 		this.addr = addr;
 	}
 	public UserVO(String name,int age,String addr) {
-=======
-	
+	}
 	
 	public String getName() {
 		return name;
@@ -65,7 +64,7 @@ public class UserVO {
 
 
 	public UserVO(String name, int age,String addr) {
->>>>>>> f7fc534614d5af9e09afaa0d87b39212e65a3cbb
+
 	}
 
 	
