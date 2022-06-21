@@ -43,8 +43,7 @@ public class UserVO {
 	}
 
 
-	public UserVO(String name, int age,String addr) {
-	}
+
 
 	
 
