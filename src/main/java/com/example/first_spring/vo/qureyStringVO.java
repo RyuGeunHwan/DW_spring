@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class qureyStringVO {
 	private String phone_num;
 	private int age;

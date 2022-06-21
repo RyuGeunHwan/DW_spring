@@ -101,13 +101,17 @@ public class EmpService {
 		for(int i=0; i<list.size(); i++) {
 			if(max<list.get(i).getSal()){
 				max = list.get(i).getSal();
-				if(max == list.get(i).getSal()) {
-					vo = list.get(i);
-				}
 			}
 		}
+		System.out.println("최댓값 => "+max);
 		List<EmpVO> maxSalEmpnoList = new ArrayList<EmpVO>();
-		maxSalEmpnoList.add(vo);
+		for(int i=0; i<list.size(); i++) {
+		if(max == list.get(i).getSal()) {
+			vo = list.get(i);
+			System.out.println(vo);
+			maxSalEmpnoList.add(vo);
+		}
+		}
 		System.out.println(maxSalEmpnoList);
 		return maxSalEmpnoList;
 	}
